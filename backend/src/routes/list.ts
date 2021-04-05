@@ -1,11 +1,10 @@
 import express, { Request, Response } from 'express';
+import { getObjectList } from '../middlewares/s3';
 
 const router = express.Router();
 
-const s3 = require('../aws/s3');
-
 router.get('/', async (req: Request, res: Response) => {
-    const objectList = await s3.getObjectList();
+    const objectList = await getObjectList();
     res.status(200).json({ posts: objectList });
 });
 
