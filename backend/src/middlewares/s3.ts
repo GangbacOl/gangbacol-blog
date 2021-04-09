@@ -3,7 +3,7 @@ import multer from 'multer';
 import multerS3 from 'multer-S3';
 import path from 'path';
 
-AWS.config.loadFromPath(path.join(__dirname, '../config/s3.json'));
+AWS.config.loadFromPath(path.join(__dirname, '../config/config.json'));
 
 const s3 = new AWS.S3();
 
