@@ -11,13 +11,26 @@ const param = {
     Bucket: 'gangbacol-blog-storage',
 };
 
-const uploadObject = multer({
+const uploadImages = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'gangbacol-blog-storage', // 버킷 이름
+        bucket: param.Bucket, // 버킷 이름
         key: (req, file, cb) => {
-            console.log(file);
-            cb(null, Date.now() + '.' + file.originalname);
+            console.log('file: ' + file.originalname);
+            cb(null, 'images/' + Date.now() + '.' + file.originalname);
+        },
+        acl: 'public-read-write',
+    }),
+    limits: { fileSize: 3 * 1024 * 1024 }, // 용량 제한
+});
+
+const uploadMarkdown = multer({
+    storage: multerS3({
+        s3: s3,
+        bucket: param.Bucket, // 버킷 이름
+        key: (req, file, cb) => {
+            console.log('file: ' + file.originalname);
+            cb(null, 'markdowns/' + Date.now() + '.' + file.originalname);
         },
         acl: 'public-read-write',
     }),
@@ -32,6 +45,7 @@ function getObjectList() {
                 if (err) throw err;
                 const contents = res.Contents;
                 contents.map((content) => {
+                    console.log(content);
                     const item = {
                         title: content.Key,
                         date: content.LastModified,
@@ -57,4 +71,4 @@ function deleteObject(filename: string) {
     );
 }
 
-export { uploadObject, getObjectList, deleteObject };
+export { uploadImages, uploadMarkdown, getObjectList, deleteObject };
