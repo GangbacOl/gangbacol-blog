@@ -7,14 +7,16 @@ AWS.config.loadFromPath(path.join(__dirname, '../config/config.json'));
 
 const s3 = new AWS.S3();
 
-const param = {
+const params = {
     Bucket: 'gangbacol-blog-storage',
+    Delimiter: '/',
+    Prefix: 'markdowns/',
 };
 
 const uploadImages = multer({
     storage: multerS3({
         s3: s3,
-        bucket: param.Bucket, // 버킷 이름
+        bucket: params.Bucket, // 버킷 이름
         key: (req, file, cb) => {
             console.log('file: ' + file.originalname);
             cb(null, 'images/' + Date.now() + '.' + file.originalname);
@@ -27,7 +29,7 @@ const uploadImages = multer({
 const uploadMarkdown = multer({
     storage: multerS3({
         s3: s3,
-        bucket: param.Bucket, // 버킷 이름
+        bucket: params.Bucket, // 버킷 이름
         key: (req, file, cb) => {
             console.log('file: ' + file.originalname);
             cb(null, 'markdowns/' + Date.now() + '.' + file.originalname);
@@ -37,17 +39,17 @@ const uploadMarkdown = multer({
     limits: { fileSize: 3 * 1024 * 1024 }, // 용량 제한
 });
 
-function getObjectList() {
+const getObjectList = () => {
     return new Promise(
         async (resolve) =>
-            await s3.listObjects(param, (err, res) => {
+            await s3.listObjectsV2(params, (err, res) => {
                 let lists = [];
                 if (err) throw err;
-                const contents = res.Contents;
+                const contents = res.Contents.slice(1);
                 contents.map((content) => {
                     console.log(content);
                     const item = {
-                        title: content.Key,
+                        filename: content.Key.split('/')[1],
                         date: content.LastModified,
                     };
                     lists.push(item);
@@ -55,12 +57,12 @@ function getObjectList() {
                 resolve(lists);
             })
     );
-}
+};
 
-function deleteObject(filename: string) {
+const deleteObject = (filename: string) => {
     return new Promise(
         async (resolve) =>
-            await s3.deleteObject({ Bucket: param.Bucket, Key: filename }, (data) => {
+            await s3.deleteObject({ Bucket: params.Bucket, Key: filename }, (data) => {
                 try {
                     console.log(data);
                     resolve(data);
@@ -69,6 +71,6 @@ function deleteObject(filename: string) {
                 }
             })
     );
-}
+};
 
 export { uploadImages, uploadMarkdown, getObjectList, deleteObject };
