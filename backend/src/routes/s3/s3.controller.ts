@@ -8,6 +8,10 @@ import { postsRepository } from '../../models/index';
 const getItemCtrl = async (req: Request, res: Response) => {
     try {
         const objectList = await getObjectList();
+        const result = await postsRepository.findAll({ raw: true });
+        (result as any[]).map((item, idx) => {
+            objectList[idx].title = item.title;
+        });
         res.status(200).json({ posts: objectList });
     } catch (err) {
         console.log(err);
