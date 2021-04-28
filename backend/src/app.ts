@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import logger from 'morgan';
+import cors from 'cors';
 
 import s3Router from './routes/s3/index';
 
@@ -7,6 +8,7 @@ import sync from './models/index';
 
 const app = express();
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
