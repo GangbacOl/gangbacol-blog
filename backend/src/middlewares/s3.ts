@@ -26,19 +26,6 @@ const uploadImages = multer({
     limits: { fileSize: 3 * 1024 * 1024 }, // 용량 제한
 });
 
-const uploadMarkdown = multer({
-    storage: multerS3({
-        s3: s3,
-        bucket: params.Bucket, // 버킷 이름
-        key: (req, file, cb) => {
-            console.log('file: ' + file.originalname);
-            cb(null, 'markdowns/' + Date.now() + '.' + file.originalname);
-        },
-        acl: 'public-read-write',
-    }),
-    limits: { fileSize: 3 * 1024 * 1024 }, // 용량 제한
-});
-
 const getObjectList = () => {
     return new Promise(
         async (resolve) =>
@@ -73,4 +60,4 @@ const deleteObject = (filename: string) => {
     );
 };
 
-export { uploadImages, uploadMarkdown, getObjectList, deleteObject };
+export { uploadImages, getObjectList, deleteObject };
