@@ -11,5 +11,5 @@ export default class FilePosts extends Model {
     title: string;
 
     @Column(DataType.TEXT)
-    markdownUrls: string;
+    content: string;
 }
