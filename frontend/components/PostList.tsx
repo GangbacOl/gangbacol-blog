@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import Post from './Post';
 
 interface Props {
-    posts: { title: string; filename: string; date: string }[];
+    posts: { id: number; title: string; updatedAt: string }[];
 }
 
 const PostList = ({ posts }: Props) => (
     <Container>
         {posts.map((item, idx) => (
-            <Post title={item.title} filename={item.filename} date={item.date} key={idx} />
+            <Post id={item.id} title={item.title} updatedAt={item.updatedAt} key={idx} />
         ))}
     </Container>
 );

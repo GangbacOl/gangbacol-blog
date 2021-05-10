@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -17,4 +18,4 @@ const TitleInput = ({ title, setTitle }: Props) => {
 const Container = styled.div``;
 const Input = styled.input``;
 
-export default TitleInput;
+export default memo(TitleInput);

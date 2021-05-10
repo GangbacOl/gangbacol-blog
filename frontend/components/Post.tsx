@@ -1,19 +1,16 @@
+import { memo } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import styled from 'styled-components';
-import axios from 'axios';
-
-import { AWS_S3 } from '../utils/baseUrl';
 
 interface Props {
+    id: number;
     title: string;
-    filename: string;
-    date: string;
+    updatedAt: string;
 }
 
-const Post = ({ title, filename, date }: Props) => {
+const Post = ({ id, title, updatedAt }: Props) => {
     const parseDate = () => {
-        const newDate = new Date(date);
+        const newDate = new Date(updatedAt);
         const year = newDate.getFullYear(),
             month = newDate.getMonth() + 1,
             day = newDate.getDate() + 1;
@@ -23,7 +20,7 @@ const Post = ({ title, filename, date }: Props) => {
     return (
         <Container>
             <TitleWrap>
-                <Link href={`/post/${filename}`}>
+                <Link href={`/post/${id}`}>
                     <Title>{title}</Title>
                 </Link>
             </TitleWrap>
@@ -40,4 +37,4 @@ const Title = styled.h2``;
 const DateWrap = styled.div``;
 const DateItem = styled.p``;
 
-export default Post;
+export default memo(Post);
