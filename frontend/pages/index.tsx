@@ -1,33 +1,35 @@
-import { GetStaticProps } from 'next';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
-import Title from '../components/Title';
+import { GetServerSideProps } from 'next';
 import { END } from 'redux-saga';
 
 import wrapper from '../store/configStore';
-
+import PostList from '../components/PostList';
 import { AsyncActionEnum } from '../interfaces/reducer/action.interface';
+import { PostStoreType } from '../interfaces/reducer/state.interface';
 
-type Props = {
-    userData: object;
+interface StoreType {
+    post: PostStoreType;
+}
+
+const IndexPage = () => {
+    const posts = useSelector((state: StoreType) => state.post.posts);
+    console.log(posts);
+    return (
+        <Container>
+            <PostList posts={posts} />
+        </Container>
+    );
 };
-
-const IndexPage = ({ userData }: Props) => (
-    <Container>
-        <Title />
-    </Container>
-);
 
 const Container = styled.div``;
 
-export const getStaticProps: GetStaticProps = wrapper.getStaticProps(async (ctx) => {
-    ctx.store.dispatch({
-        type: AsyncActionEnum.API_LOADING,
-        payload: { id: 999, content: 'awefawf' },
+export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(async ({ store }) => {
+    store.dispatch({
+        type: AsyncActionEnum.LOAD_POSTS_REQUEST,
     });
-    ctx.store.dispatch(END);
-    await (ctx.store as any).sagaTask.toPromise();
-    const userData = ctx.store.getState().user.data;
-    return { props: { userData } };
+    store.dispatch(END);
+    await (store as any).sagaTask.toPromise();
 });
 
 export default IndexPage;
