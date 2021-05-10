@@ -1,41 +1,52 @@
 import { HYDRATE } from 'next-redux-wrapper';
+import { END } from 'redux-saga';
+
+import { Post, PostStoreType } from './state.interface';
 
 export enum AsyncActionEnum {
-    API_INIT = 'API_INIT',
-    API_SUCCESS = 'API_SUCCESS',
-    API_FAILURE = 'API_FAILURE',
-    API_LOADING = 'API_LOADING',
+    LOAD_POSTS_INIT = 'LOAD_POSTS_INIT',
+    LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS',
+    LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE',
+    LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST',
+    LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS',
+    LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE',
+    LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST',
 }
 
 export type AsyncActionType =
-    | HydrateActionInterface
-    | InitActionInterface
-    | SuccessActionInterface
-    | FailureActionInterface
-    | LoadingActionInterface;
+    | END
+    | Hydrate
+    | LoadPostsRequest
+    | LoadPostsSuccess
+    | LoadPostsFailure
+    | LoadSinglePostRequest
+    | LoadSinglePostSucces
+    | LoadSinglePostFail;
 
-interface HydrateActionInterface {
+export interface Hydrate {
     type: typeof HYDRATE;
-    payload: ExamplePayload | null;
+    payload: { post: PostStoreType };
 }
-interface InitActionInterface {
-    type: typeof AsyncActionEnum.API_INIT;
-    payload: ExamplePayload | null;
+export interface LoadPostsRequest {
+    type: typeof AsyncActionEnum.LOAD_POSTS_REQUEST;
 }
-interface SuccessActionInterface {
-    type: typeof AsyncActionEnum.API_SUCCESS;
-    payload: ExamplePayload | null;
+export interface LoadPostsSuccess {
+    type: typeof AsyncActionEnum.LOAD_POSTS_SUCCESS;
+    payload: Post[];
 }
-interface FailureActionInterface {
-    type: typeof AsyncActionEnum.API_FAILURE;
+export interface LoadPostsFailure {
+    type: typeof AsyncActionEnum.LOAD_POSTS_FAILURE;
     payload: Error | null;
 }
-interface LoadingActionInterface {
-    type: typeof AsyncActionEnum.API_LOADING;
-    payload: ExamplePayload | null;
+export interface LoadSinglePostRequest {
+    type: typeof AsyncActionEnum.LOAD_SINGLE_POST_REQUEST;
+    payload: string | string[];
 }
-
-type ExamplePayload = {
-    id: number;
-    content: string;
-};
+export interface LoadSinglePostSucces {
+    type: typeof AsyncActionEnum.LOAD_SINGLE_POST_SUCCESS;
+    payload: Post;
+}
+export interface LoadSinglePostFail {
+    type: typeof AsyncActionEnum.LOAD_SINGLE_POST_FAILURE;
+    payload: Error | null;
+}
