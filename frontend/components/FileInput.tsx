@@ -1,14 +1,14 @@
-import React from 'react';
+import { memo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-    images: File | null;
-    markdown: File | null;
+    images: FileList | null;
+    markdown: FileList | null;
     setImages: Function;
     setMarkdown: Function;
 }
 
-const FileInput = ({ images, markdown, setImages, setMarkdown }: Props) => {
+const FileInput = ({ setImages, setMarkdown }: Props) => {
     const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => setImages(e.target.files);
     const handleMarkdown = (e: React.ChangeEvent<HTMLInputElement>) => setMarkdown(e.target.files);
 
@@ -38,4 +38,4 @@ const Label = styled.div``;
 const ImageInput = styled.input``;
 const MarkdownInput = styled.input``;
 
-export default FileInput;
+export default memo(FileInput);
