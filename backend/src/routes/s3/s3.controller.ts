@@ -7,9 +7,9 @@ import { postsRepository } from '../../models/index';
 
 const getOneItemCtrl = async (req: Request, res: Response) => {
     try {
-        const id = req.body.id;
+        const id = req.params.id;
         const result = await postsRepository.findOne({ where: { id } });
-        res.status(200).json({ result });
+        res.status(200).json({ post: result });
     } catch (err) {
         console.log(err);
         res.status(500).json({ message: '서버 에러' });

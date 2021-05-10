@@ -5,7 +5,7 @@ import controller from '../s3/s3.controller';
 
 const router = express.Router();
 
-router.get('/item', controller.getOneItemCtrl);
+router.get('/item/:id', controller.getOneItemCtrl);
 router.get('/list', controller.getItemCtrl);
 router.post('/uploadImages', uploadImages.array('images'), controller.uploadImagesCtrl);
 router.post('/uploadMarkdown', controller.uploadMarkdownCtrl);
