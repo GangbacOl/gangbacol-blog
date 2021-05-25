@@ -1,7 +1,7 @@
 import express from 'express';
 
 import { uploadImages } from '../../middlewares/s3';
-import controller from '../s3/s3.controller';
+import controller from './s3.controller';
 
 const router = express.Router();
 
