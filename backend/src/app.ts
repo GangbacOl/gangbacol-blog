@@ -2,7 +2,8 @@ import express, { Request, Response } from 'express';
 import logger from 'morgan';
 import cors from 'cors';
 
-import s3Router from './routes/s3/index';
+import s3Router from './routes/s3';
+import authRouter from './routes/auth';
 
 import sync from './models/index';
 
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', s3Router);
+app.use('/admin', authRouter);
 
 app.get('/', (req: Request, res: Response): void => {
     res.status(200).json({ message: 'success' });
