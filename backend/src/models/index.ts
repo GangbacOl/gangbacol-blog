@@ -2,6 +2,7 @@ import { Sequelize } from 'sequelize-typescript';
 import config from '../config/db';
 
 import Posts from './Posts';
+import Users from './Users';
 
 const sequelize = new Sequelize({
     database: config.development.database,
@@ -9,11 +10,12 @@ const sequelize = new Sequelize({
     password: config.development.password,
     host: config.development.host,
     dialect: 'mysql',
-    models: [Posts],
+    models: [Posts, Users],
     repositoryMode: true,
 });
 
 export const postsRepository = sequelize.getRepository(Posts);
+export const usersRepository = sequelize.getRepository(Users);
 
 const sync = async () => {
     await sequelize.authenticate().then(async () => {
