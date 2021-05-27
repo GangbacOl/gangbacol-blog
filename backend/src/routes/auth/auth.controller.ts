@@ -57,10 +57,11 @@ const loginCtrl = async (req: Request, res: Response) => {
             {
                 issuer: 'localhost',
                 subject: 'userInfo',
+                expiresIn: '7d',
             }
         );
-
-        return res.status(200).json({ msg: 'Login successful', token });
+        res.cookie('token', token, { domain: 'localhost', maxAge: 10000 });
+        res.status(200).json({ msg: 'Login successful' });
     } catch (error) {
         console.log(error);
     }
