@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import logger from 'morgan';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 import s3Router from './routes/s3';
 import authRouter from './routes/auth';
@@ -9,7 +10,8 @@ import sync from './models/index';
 
 const app = express();
 
-app.use(cors());
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cookieParser());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
