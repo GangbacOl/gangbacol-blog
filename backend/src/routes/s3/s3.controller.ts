@@ -16,7 +16,7 @@ const getOneItemCtrl = async (req: Request, res: Response) => {
     }
 };
 
-const getItemCtrl = async (req: Request, res: Response) => {
+const getItemsCtrl = async (req: Request, res: Response) => {
     try {
         const result = await postsRepository.findAll({ raw: true });
         console.log(result);
@@ -62,4 +62,4 @@ const deleteItemCtrl = async (req: Request, res: Response) => {
     }
 };
 
-export default { getOneItemCtrl, getItemCtrl, uploadImagesCtrl, uploadMarkdownCtrl, deleteItemCtrl };
+export default { getOneItemCtrl, getItemsCtrl, uploadImagesCtrl, uploadMarkdownCtrl, deleteItemCtrl };

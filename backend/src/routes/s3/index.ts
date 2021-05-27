@@ -6,13 +6,12 @@ import { verifyToken } from '../../middlewares/auth';
 
 const router = express.Router();
 
-router.use('/list', verifyToken);
 router.use('/uploadImages', verifyToken);
 router.use('/uploadMarkdown', verifyToken);
 router.use('/delete/:id', verifyToken);
 
 router.get('/item/:id', controller.getOneItemCtrl);
-router.get('/list', controller.getItemCtrl);
+router.get('/list', controller.getItemsCtrl);
 router.post('/uploadImages', uploadImages.array('images'), controller.uploadImagesCtrl);
 router.post('/uploadMarkdown', controller.uploadMarkdownCtrl);
 router.delete('/delete/:id', controller.deleteItemCtrl);
