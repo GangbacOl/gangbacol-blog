@@ -29,7 +29,7 @@ const registerCtrl = async (req: Request, res: Response) => {
             });
 
         await usersRepository.create({ username, account, password: encryptedPassowrd });
-        return res.status(201).json({ msg: 'Register successful' });
+        res.status(201).json({ success: true, msg: 'Register successful' });
     } catch (error) {
         console.log(error);
     }
@@ -57,11 +57,10 @@ const loginCtrl = async (req: Request, res: Response) => {
             {
                 issuer: 'localhost',
                 subject: 'userInfo',
-                expiresIn: '7d',
+                expiresIn: '5d',
             }
         );
-        res.cookie('token', token, { domain: 'localhost', maxAge: 10000 });
-        res.status(200).json({ msg: 'Login successful' });
+        res.status(200).json({ success: true, msg: 'Login successful', token });
     } catch (error) {
         console.log(error);
     }
