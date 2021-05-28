@@ -1,5 +1,8 @@
 export const BASEURL: string = 'http://localhost:5000';
 
+export const LOGIN_URL: string = `${BASEURL}/admin/login`;
+export const REGISTER_URL: string = `${BASEURL}/admin/register`;
+
 export const GET_SINGLE_POST: string = `${BASEURL}/item`;
 export const GET_POSTS: string = `${BASEURL}/list`;
 export const UPLOAD_IMAGE_URL: string = `${BASEURL}/uploadImages`;
