@@ -25,9 +25,9 @@ const uploadImages = multer({
     limits: { fileSize: 3 * 1024 * 1024 }, // 용량 제한
 });
 
-const deleteObject = (filename: string) => {
-    return new Promise(
-        async (resolve) =>
+const deleteObject = (filenames: string[]) => {
+    return new Promise((resolve) =>
+        filenames.map(async (filename) => {
             await s3.deleteObject({ Bucket: params.Bucket, Key: filename }, (data) => {
                 try {
                     console.log(data);
@@ -35,7 +35,8 @@ const deleteObject = (filename: string) => {
                 } catch (err) {
                     console.log(err);
                 }
-            })
+            });
+        })
     );
 };
 
