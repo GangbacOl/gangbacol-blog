@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Markdown from 'markdown-to-jsx';
 import { END } from 'redux-saga';
 
-import wrapper from '../../store/configStore';
+import { wrapper } from '../../store/configStore';
 import { AsyncActionEnum } from '../../interfaces/reducer/action.interface';
 import { Post as PostType, PostStoreType } from '../../interfaces/reducer/state.interface';
 

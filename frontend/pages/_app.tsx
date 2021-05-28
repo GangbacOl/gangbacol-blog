@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 
 import GlobalStyle from '../style/globalStyle';
-import wrapper from '../store/configStore';
+import { wrapper } from '../store/configStore';
 
 const App = ({ Component, pageProps }: AppProps) => {
     return (
