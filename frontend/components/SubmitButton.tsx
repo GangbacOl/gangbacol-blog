@@ -13,21 +13,25 @@ interface Props {
 
 const SubmitButton = ({ title, images, markdown, router }: Props) => {
     const handleSubmit = () => {
-        if (!markdown || !images) return;
+        if (!markdown) return;
 
         const fileReader = new FileReader();
         fileReader.readAsText(markdown[0]);
         fileReader.onload = async (e: any) => {
             let content = e.target.result;
+            let res;
 
-            const result = await uploadPostImages(images);
+            if (images) {
+                const result = await uploadPostImages(images);
 
-            result.fileLocations.map((item: string) => {
-                const replaceText = `<img src="${item}">`;
-                content = content.replace(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/, replaceText);
-            });
-
-            const res = await uploadPost(title, content, result.filenames);
+                result.fileLocations.map((item: string) => {
+                    const replaceText = `<img src="${item}">`;
+                    content = content.replace(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/, replaceText);
+                });
+                res = await uploadPost(title, content, result.filenames);
+            } else {
+                res = await uploadPost(title, content, []);
+            }
 
             if (res.status === 200) {
                 router.push('/');
