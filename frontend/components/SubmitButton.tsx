@@ -1,43 +1,43 @@
-import { useState, memo } from 'react';
+import { memo } from 'react';
+import { NextRouter } from 'next/router';
 import styled from 'styled-components';
-import axios from 'axios';
 
-import { UPLOAD_IMAGE_URL, UPLOAD_MARKDOWN_URL } from '../utils/baseUrl';
+import { uploadPostImages, uploadPost } from '../utils/api';
 
 interface Props {
     title: string;
     images: FileList | null;
     markdown: FileList | null;
+    router: NextRouter;
 }
 
-const SubmitButton = ({ title, images, markdown }: Props) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-
-    const handleClick = () => {
+const SubmitButton = ({ title, images, markdown, router }: Props) => {
+    const handleSubmit = () => {
         if (!markdown || !images) return;
-        setIsLoading(true);
 
         const fileReader = new FileReader();
         fileReader.readAsText(markdown[0]);
         fileReader.onload = async (e: any) => {
             let content = e.target.result;
 
-            const formDataImage = new FormData();
-            Array.from(images).forEach((image) => formDataImage.append('images', image));
-            const res1 = await axios.post(UPLOAD_IMAGE_URL, formDataImage);
+            const result = await uploadPostImages(images);
 
-            res1.data.filesLocation.map((item: string) => {
+            result.fileLocations.map((item: string) => {
                 const replaceText = `<img src="${item}">`;
                 content = content.replace(/!\[[^\]]*\]\((.*?)\s*("(?:.*[^"])")?\s*\)/, replaceText);
             });
 
-            const data = { title, content };
-            await axios.post(UPLOAD_MARKDOWN_URL, data);
+            const res = await uploadPost(title, content, result.filenames);
+
+            if (res.status === 200) {
+                router.push('/');
+            }
         };
     };
+
     return (
         <Container>
-            <Button type="button" value="저장" onClick={handleClick} />
+            <Button type="button" value="저장" onClick={handleSubmit} />
         </Container>
     );
 };
