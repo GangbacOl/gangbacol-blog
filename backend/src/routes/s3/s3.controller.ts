@@ -58,7 +58,7 @@ const deleteItemCtrl = async (req: Request, res: Response) => {
         const result = await postsRepository.findAll({ where: { id }, raw: true });
         const filenames = JSON.parse(result[0].imageUrls);
 
-        await deleteObject(filenames);
+        if (filenames.length > 0) await deleteObject(filenames);
         await postsRepository.destroy({ where: { id } });
 
         res.status(200).json({ success: true, msg: result });
