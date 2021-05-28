@@ -12,4 +12,7 @@ export default class FilePosts extends Model {
 
     @Column(DataType.TEXT)
     content: string;
+
+    @Column
+    imageUrls: string;
 }
