@@ -41,9 +41,14 @@ const uploadImagesCtrl = async (req: MulterRequest, res: Response) => {
 
 const uploadMarkdownCtrl = async (req: Request, res: Response) => {
     try {
-        const { title, content, filenames } = req.body;
+        const { title, description, content, filenames } = req.body;
         console.log(filenames);
-        const result = await postsRepository.create({ title, content, imageUrls: JSON.stringify(filenames) });
+        const result = await postsRepository.create({
+            title,
+            description,
+            content,
+            imageUrls: JSON.stringify(filenames),
+        });
 
         res.status(200).json({ success: true, msg: 'success' });
     } catch (err) {
