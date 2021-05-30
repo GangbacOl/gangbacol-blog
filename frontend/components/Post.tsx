@@ -1,14 +1,15 @@
-import { memo } from 'react';
+import React, { memo } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
 
 interface Props {
     id: number;
     title: string;
+    description: string;
     updatedAt: string;
 }
 
-const Post = ({ id, title, updatedAt }: Props) => {
+const Post = ({ id, title, description, updatedAt }: Props) => {
     const parseDate = () => {
         const newDate = new Date(updatedAt);
         const year = newDate.getFullYear(),
@@ -24,6 +25,9 @@ const Post = ({ id, title, updatedAt }: Props) => {
                     <Title>{title}</Title>
                 </Link>
             </TitleWrap>
+            <DescWrap>
+                <Desc>{description}</Desc>
+            </DescWrap>
             <DateWrap>
                 <DateItem>{parseDate()}</DateItem>
             </DateWrap>
@@ -32,8 +36,14 @@ const Post = ({ id, title, updatedAt }: Props) => {
 };
 
 const Container = styled.div``;
-const TitleWrap = styled.div``;
+const TitleWrap = styled.div`
+    &:hover {
+        cursor: pointer;
+    }
+`;
 const Title = styled.h2``;
+const DescWrap = styled.div``;
+const Desc = styled.p``;
 const DateWrap = styled.div``;
 const DateItem = styled.p``;
 
