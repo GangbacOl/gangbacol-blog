@@ -21,10 +21,15 @@ export const uploadPostImages = async (images: FileList) => {
     return data;
 };
 
-export const uploadPost = async (title: string, content: string, filenames: string[]) => {
+export const uploadPost = async (
+    title: string,
+    description: string,
+    content: string,
+    filenames: string[]
+) => {
     return await axios.post(
         UPLOAD_MARKDOWN_URL,
-        { title, content, filenames },
+        { title, description, content, filenames },
         { headers: { authorization: localStorage.getItem('token') } }
     );
 };
