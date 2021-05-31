@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Post from './Post';
 import { deletePost } from '../utils/api';
 
-import Delete from '../assets/delete.svg';
+import Delete from '../public/assets/delete.svg';
 
 interface Props {
     posts: { id: number; description: string; title: string; updatedAt: string }[];

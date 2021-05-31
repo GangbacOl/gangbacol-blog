@@ -9,7 +9,7 @@ import { SagaStore, wrapper } from '../store/configStore';
 import { AsyncActionEnum } from '../interfaces/reducer/action.interface';
 import { PostStoreType } from '../interfaces/reducer/state.interface';
 
-import Empty from '../assets/empty.svg';
+import Empty from '../public/assets/empty.svg';
 
 interface StoreType {
     post: PostStoreType;
