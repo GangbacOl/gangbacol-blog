@@ -27,7 +27,6 @@ config.json
 *.log
 
 dist/*
-public
 
 # debug
 npm-debug.log*
