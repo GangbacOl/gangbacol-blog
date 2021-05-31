@@ -17,7 +17,24 @@ const Post = () => {
     return <Container>{post ? <Markdown>{post.content}</Markdown> : null}</Container>;
 };
 
-const Container = styled.div``;
+const Container = styled.div`
+    width: 50%;
+    padding: 40px 25%;
+    overflow: hidden;
+    & img {
+        margin: 0 auto;
+        width: 90%;
+        padding: 0 5%;
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 80%;
+        padding: 40px 10%;
+    }
+    @media only screen and (max-width: 450px) {
+        width: calc(100% - 60px);
+        padding: 40px 30px;
+    }
+`;
 
 export const getServerSideProps: GetServerSideProps = wrapper.getServerSideProps(async ({ query, store }) => {
     store.dispatch({

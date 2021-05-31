@@ -9,11 +9,7 @@ import { convertErrorToMsg } from '../../utils/errorBoundary';
 
 const RegisterPage = () => {
     const router = useRouter();
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm();
+    const { register, handleSubmit } = useForm();
 
     const onSubmit = async (data: any) => {
         try {
@@ -35,7 +31,6 @@ const RegisterPage = () => {
                         placeholder="이름을 입력해주세요."
                         {...register('username', { required: true })}
                     />
-                    {errors.username && <span>This field is required</span>}
                     <br />
                     <TextInput
                         placeholder="아이디를 입력해주세요."
@@ -80,6 +75,9 @@ const RegisterBox = styled.div`
     border-radius: 40px;
     background: linear-gradient(145deg, #ffffff, #d8d7dd);
     box-shadow: 40px 40px 80px #b6b6ba, -40px -40px 80px #ffffff;
+    @media only screen and (max-width: 450px) {
+        width: 85%;
+    }
 `;
 const HookForm = styled.form`
     position: relative;
@@ -97,10 +95,14 @@ const TextInput = styled.input`
     padding: 0 20px;
     background: #f8f8f8;
     box-shadow: inset 4px 4px 8px #d3d3d3, inset -4px -4px 8px #ffffff;
+    -moz-box-shadow: inset 4px 4px 8px #d3d3d3, inset -4px -4px 8px #ffffff;
     outline: none;
     transition: all 0.3s;
     &:focus {
         box-shadow: inset 4px 4px 25px #d3d3d3, inset -4px -4px 25px #ffffff;
+    }
+    @media only screen and (max-width: 450px) {
+        width: calc(80% - 40px);
     }
 `;
 const ButtonInput = styled.button`
@@ -119,6 +121,9 @@ const ButtonInput = styled.button`
     &:hover {
         -webkit-box-shadow: 10px 10px 28px -8px rgba(0, 0, 0, 0.75);
         box-shadow: 10px 10px 28px -8px rgba(0, 0, 0, 0.75);
+    }
+    @media only screen and (max-width: 450px) {
+        width: 80%;
     }
 `;
 const LinkWrap = styled.div`

@@ -42,7 +42,7 @@ const PostList = ({ posts, isAdmin }: Props) => {
 
 const Container = styled.div``;
 const PostWrap = styled.div`
-    width: 100%;
+    width: calc(100% - 40px);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -52,12 +52,21 @@ const PostWrap = styled.div`
     background: #f8f8f8;
     box-shadow: 14px 14px 28px #bcbcbc, -14px -14px 28px #ffffff;
     transition: all 0.3s;
-    &:first-child {
-        margin-top: 0;
-    }
     &:hover {
         transform: translateY(-5px);
         box-shadow: 19px 19px 38px #bcbcbc, -19px -19px 38px #ffffff;
+    }
+    @media only screen and (max-width: 1024px) {
+        width: calc(100% - 34px);
+        border-radius: 15px;
+        padding: 0 17px;
+    }
+    @media only screen and (max-width: 450px) {
+        position: relative;
+        width: calc(100% - 20px);
+        margin: 15px 0;
+        border-radius: 10px;
+        padding: 0 10px;
     }
 `;
 const ButtonSvgWrap = styled.div`
@@ -69,6 +78,20 @@ const DeleteSvg = styled(Delete)`
     width: 25px;
     height: auto;
     margin: 0 10px;
+    transition: all 0.3s;
+    &:hover {
+        transform: scale(1.15);
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 20px;
+        margin: 0 7px;
+    }
+    @media only screen and (max-width: 450px) {
+        position: absolute;
+        top: 12px;
+        right: 2px;
+        width: 17px;
+    }
 `;
 
 export default PostList;
