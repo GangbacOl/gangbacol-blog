@@ -53,7 +53,9 @@ const SubmitPage = () => {
 
     const drawFileList = (fileList: FileList | null) => {
         if (fileList !== null)
-            return Array.from(fileList).map((file: any) => <UploadedFile>{file.name}</UploadedFile>);
+            return Array.from(fileList).map((file: any, idx) => (
+                <UploadedFile key={idx}>{file.name}</UploadedFile>
+            ));
     };
 
     useLayoutEffect(() => {
