@@ -13,12 +13,12 @@ const RegisterPage = () => {
 
     const onSubmit = async (data: any) => {
         try {
-            console.log(data);
             const res = await _register(data);
             if (res.status === 201) {
                 router.push('/admin/login');
             }
         } catch (error) {
+            console.log(error.response.data.errorCode);
             alert(convertErrorToMsg(error.response.data.errorCode));
         }
     };
