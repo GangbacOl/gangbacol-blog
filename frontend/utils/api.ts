@@ -53,9 +53,7 @@ export const deletePost = async (id: number) => {
 };
 
 export const login = async (data: { account: string; password: string }) => {
-    const response = await axios.post(`${LOGIN_URL}`, data, {
-        withCredentials: true,
-    });
+    const response = await axios.post(`${LOGIN_URL}`, data);
     return response;
 };
 
