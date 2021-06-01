@@ -12,21 +12,25 @@ const sequelize = new Sequelize({
     dialect: 'mysql',
     models: [Posts, Users],
     repositoryMode: true,
+    define: {
+        charset: 'utf8',
+        collate: 'utf8_general_ci',
+    },
 });
 
 export const postsRepository = sequelize.getRepository(Posts);
 export const usersRepository = sequelize.getRepository(Users);
 
 const sync = async () => {
-    await sequelize.authenticate().then(async () => {
-        try {
+    try {
+        await sequelize.authenticate().then(async () => {
             console.log('database connection success');
-            await sequelize.sync();
-        } catch (err) {
-            console.error('database sycn failed');
-            console.error(err);
-        }
-    });
+        });
+        await sequelize.sync();
+    } catch (err) {
+        console.error('database sycn failed');
+        console.error(err);
+    }
 };
 
 export default sync;
