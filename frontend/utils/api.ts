@@ -41,7 +41,6 @@ export const getSinglePost = async (id: string | string[]): Promise<{}[]> => {
 
 export const getPosts = async (): Promise<{}[]> => {
     const { data } = await axios.get(`${GET_POSTS}`);
-    console.log(data);
     return data;
 };
 
