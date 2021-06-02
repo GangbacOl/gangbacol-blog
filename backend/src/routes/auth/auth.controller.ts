@@ -5,18 +5,20 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import { usersRepository } from './../../models/index';
-import { passwordValidator, bodyValidator } from '../../validator/auth';
+import { passwordValidator, bodyValidator, checkSecretCode } from '../../validator/auth';
 
 const registerCtrl = async (req: Request, res: Response) => {
     try {
-        const { username, account, password } = req.body;
+        const { username, account, password, secretCode } = req.body;
 
+        const isSecretCodeIncorrect = checkSecretCode(secretCode);
         const isMissingParameter = bodyValidator(req, res);
         const isExistingAccount = await usersRepository.findAll({ where: { account } }).then((data) => data);
         const isInvalidPassword = passwordValidator(password);
 
         const encryptedPassowrd = bcrypt.hashSync(password, 10);
 
+        if (isSecretCodeIncorrect) return res.status(400).json({ errorCode: 'IncorrectSecretCode' });
         if (isMissingParameter) return res.status(400).json({ errorCode: 'MissingParameter' });
         if (isExistingAccount.length)
             return res
@@ -60,7 +62,12 @@ const loginCtrl = async (req: Request, res: Response) => {
                 expiresIn: '5d',
             }
         );
-        res.status(200).json({ success: true, msg: 'Login successful', token });
+        res.status(200).json({
+            success: true,
+            msg: 'Login successful',
+            username: isExistingAccount[0].username,
+            token,
+        });
     } catch (error) {
         console.log(error);
     }
