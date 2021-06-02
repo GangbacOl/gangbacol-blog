@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import _passwordValidator from 'password-validator';
 import { validationResult } from 'express-validator';
+import dotenv from 'dotenv';
+dotenv.config();
 
 export const passwordValidator = (password: string) => {
     const schema = new _passwordValidator();
@@ -15,3 +17,6 @@ export const bodyValidator = (req: Request, res: Response) => {
         return res.status(400).json({ errors: errors.array() });
     }
 };
+
+export const checkSecretCode = (secretCode: string) =>
+    process.env.REGISTER_SECRET_CODE !== secretCode ? true : false;
