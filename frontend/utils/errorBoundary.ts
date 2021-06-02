@@ -1,5 +1,7 @@
 export const convertErrorToMsg = (errorCode: string) => {
     switch (errorCode) {
+        case 'IncorrectSecretCode':
+            return '잘못된 가입코드입니다.';
         case 'MissingParameter':
             return '모든 입력칸을 채워주세요.';
         case 'ExistingAccount':
