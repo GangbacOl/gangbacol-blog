@@ -42,6 +42,12 @@ const RegisterPage = () => {
                         placeholder="비밀번호를 입력해주세요."
                         {...register('password', { required: true })}
                     />
+                    <br />
+                    <TextInput
+                        type="password"
+                        placeholder="가입코드를 입력해주세요."
+                        {...register('secretCode', { required: true })}
+                    />
                     <ButtonInput type="submit">회원가입</ButtonInput>
                 </HookForm>
                 <LinkWrap>
