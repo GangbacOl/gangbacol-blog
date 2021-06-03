@@ -1,4 +1,4 @@
-export const BASEURL: string = 'http://52.78.106.6:5000';
+export const BASEURL: string = 'https://api.gangbacol.dev';
 
 export const LOGIN_URL: string = `${BASEURL}/admin/login`;
 export const REGISTER_URL: string = `${BASEURL}/admin/register`;
