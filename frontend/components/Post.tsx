@@ -14,7 +14,7 @@ const Post = ({ id, title, description, updatedAt }: Props) => {
         const newDate = new Date(updatedAt);
         const year = newDate.getFullYear(),
             month = newDate.getMonth() + 1,
-            day = newDate.getDate() + 1;
+            day = newDate.getDate();
         return year + '년 ' + month + '월 ' + day + '일';
     };
 
