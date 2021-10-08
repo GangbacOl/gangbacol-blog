@@ -1,52 +1,70 @@
-import { HYDRATE } from 'next-redux-wrapper';
-import { END } from 'redux-saga';
+import { HYDRATE } from "next-redux-wrapper";
+import { END } from "redux-saga";
 
-import { Post, PostStoreType } from './state.interface';
+import { Post, PostStoreType } from "./state.interface";
 
 export enum AsyncActionEnum {
-    LOAD_POSTS_INIT = 'LOAD_POSTS_INIT',
-    LOAD_SINGLE_POST_SUCCESS = 'LOAD_SINGLE_POST_SUCCESS',
-    LOAD_SINGLE_POST_FAILURE = 'LOAD_SINGLE_POST_FAILURE',
-    LOAD_SINGLE_POST_REQUEST = 'LOAD_SINGLE_POST_REQUEST',
-    LOAD_POSTS_SUCCESS = 'LOAD_POSTS_SUCCESS',
-    LOAD_POSTS_FAILURE = 'LOAD_POSTS_FAILURE',
-    LOAD_POSTS_REQUEST = 'LOAD_POSTS_REQUEST',
+  GET_MULTIPLE_POST_INIT = "GET_MULTIPLE_POST_INIT",
+  GET_SINGLE_POST_SUCCESS = "GET_SINGLE_POST_SUCCESS",
+  GET_SINGLE_POST_FAILURE = "GET_SINGLE_POST_FAILURE",
+  GET_SINGLE_POST_REQUEST = "GET_SINGLE_POST_REQUEST",
+  GET_MULTIPLE_POST_SUCCESS = "GET_MULTIPLE_POST_SUCCESS",
+  GET_MULTIPLE_POST_FAILURE = "GET_MULTIPLE_POST_FAILURE",
+  GET_MULTIPLE_POST_REQUEST = "GET_MULTIPLE_POST_REQUEST",
+  DELETE_POST_SUCCESS = "DELETE_POST_SUCCESS",
+  DELETE_POST_FAILURE = "DELETE_POST_FAILURE",
+  DELETE_POST_REQUEST = "DELETE_POST_REQUEST",
 }
 
 export type AsyncActionType =
-    | END
-    | Hydrate
-    | LoadPostsRequest
-    | LoadPostsSuccess
-    | LoadPostsFailure
-    | LoadSinglePostRequest
-    | LoadSinglePostSucces
-    | LoadSinglePostFail;
+  | END
+  | Hydrate
+  | GetMultiplePostRequest
+  | GetMultiplePostSuccess
+  | GetMultiplePostFailure
+  | GetSinglePostRequest
+  | GetSinglePostSuccess
+  | GetSinglePostFailure
+  | DeletePostRequest
+  | DeletePostSuccess
+  | DeletePostFailure;
 
 export interface Hydrate {
-    type: typeof HYDRATE;
-    payload: { post: PostStoreType };
+  type: typeof HYDRATE;
+  payload: { post: PostStoreType };
 }
-export interface LoadPostsRequest {
-    type: typeof AsyncActionEnum.LOAD_POSTS_REQUEST;
+export interface GetMultiplePostRequest {
+  type: typeof AsyncActionEnum.GET_MULTIPLE_POST_REQUEST;
 }
-export interface LoadPostsSuccess {
-    type: typeof AsyncActionEnum.LOAD_POSTS_SUCCESS;
-    payload: Post[];
+export interface GetMultiplePostSuccess {
+  type: typeof AsyncActionEnum.GET_MULTIPLE_POST_SUCCESS;
+  payload: Post[];
 }
-export interface LoadPostsFailure {
-    type: typeof AsyncActionEnum.LOAD_POSTS_FAILURE;
-    payload: Error | null;
+export interface GetMultiplePostFailure {
+  type: typeof AsyncActionEnum.GET_MULTIPLE_POST_FAILURE;
+  payload: Error;
 }
-export interface LoadSinglePostRequest {
-    type: typeof AsyncActionEnum.LOAD_SINGLE_POST_REQUEST;
-    payload: string | string[];
+export interface GetSinglePostRequest {
+  type: typeof AsyncActionEnum.GET_SINGLE_POST_REQUEST;
+  payload: string | string[];
 }
-export interface LoadSinglePostSucces {
-    type: typeof AsyncActionEnum.LOAD_SINGLE_POST_SUCCESS;
-    payload: Post;
+export interface GetSinglePostSuccess {
+  type: typeof AsyncActionEnum.GET_SINGLE_POST_SUCCESS;
+  payload: Post;
 }
-export interface LoadSinglePostFail {
-    type: typeof AsyncActionEnum.LOAD_SINGLE_POST_FAILURE;
-    payload: Error | null;
+export interface GetSinglePostFailure {
+  type: typeof AsyncActionEnum.GET_SINGLE_POST_FAILURE;
+  payload: Error;
+}
+export interface DeletePostRequest {
+  type: typeof AsyncActionEnum.DELETE_POST_REQUEST;
+  payload: string | string[];
+}
+export interface DeletePostSuccess {
+  type: typeof AsyncActionEnum.DELETE_POST_SUCCESS;
+  payload: Post;
+}
+export interface DeletePostFailure {
+  type: typeof AsyncActionEnum.DELETE_POST_FAILURE;
+  payload: Error | null;
 }
