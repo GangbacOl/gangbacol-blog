@@ -1,7 +1,7 @@
 import { HYDRATE } from "next-redux-wrapper";
 import { END } from "redux-saga";
 
-import { Post, PostStoreType } from "./state.interface";
+import { Post, PostStoreInterface } from "./state.interface";
 
 export enum AsyncActionEnum {
   GET_MULTIPLE_POST_INIT = "GET_MULTIPLE_POST_INIT",
@@ -31,7 +31,7 @@ export type AsyncActionType =
 
 export interface Hydrate {
   type: typeof HYDRATE;
-  payload: { post: PostStoreType };
+  payload: { post: PostStoreInterface };
 }
 export interface GetMultiplePostRequest {
   type: typeof AsyncActionEnum.GET_MULTIPLE_POST_REQUEST;
@@ -58,11 +58,11 @@ export interface GetSinglePostFailure {
 }
 export interface DeletePostRequest {
   type: typeof AsyncActionEnum.DELETE_POST_REQUEST;
-  payload: string | string[];
+  payload: number;
 }
 export interface DeletePostSuccess {
   type: typeof AsyncActionEnum.DELETE_POST_SUCCESS;
-  payload: Post;
+  // payload: Post;
 }
 export interface DeletePostFailure {
   type: typeof AsyncActionEnum.DELETE_POST_FAILURE;
