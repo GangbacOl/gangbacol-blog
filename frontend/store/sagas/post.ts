@@ -1,28 +1,38 @@
-import { takeLatest, put, call } from 'redux-saga/effects';
+import { DeletePostRequest } from "./../../interfaces/reducer/action.interface";
+import { takeLatest, put, call } from "redux-saga/effects";
 
-import { AsyncActionEnum, LoadSinglePostRequest } from '../../interfaces/reducer/action.interface';
-import { Post } from '../../interfaces/reducer/state.interface';
-import { getSinglePost, getPosts } from '../../utils/api';
+import { AsyncActionEnum, GetSinglePostRequest } from "../../interfaces/reducer/action.interface";
+import { Post } from "../../interfaces/reducer/state.interface";
+import { getSinglePost, getPosts, deletePost } from "../../utils/api";
 
-export function* getSinglePostSaga(action: LoadSinglePostRequest) {
-    try {
-        const result: { post: Post } = yield call(getSinglePost, action.payload);
-        yield put({ type: AsyncActionEnum.LOAD_SINGLE_POST_SUCCESS, payload: result.post });
-    } catch (error) {
-        yield put({ type: AsyncActionEnum.LOAD_SINGLE_POST_FAILURE, payload: error });
-    }
+export function* getSinglePostSaga(action: GetSinglePostRequest) {
+  try {
+    const result: { post: Post } = yield call(getSinglePost, action.payload);
+    yield put({ type: AsyncActionEnum.GET_SINGLE_POST_SUCCESS, payload: result.post });
+  } catch (error) {
+    yield put({ type: AsyncActionEnum.GET_SINGLE_POST_FAILURE, payload: error });
+  }
 }
 
 export function* getPostsSaga() {
-    try {
-        const result: { posts: Post[] } = yield call(getPosts);
-        yield put({ type: AsyncActionEnum.LOAD_POSTS_SUCCESS, payload: result.posts });
-    } catch (error) {
-        yield put({ type: AsyncActionEnum.LOAD_POSTS_FAILURE, payload: error });
-    }
+  try {
+    const result: { posts: Post[] } = yield call(getPosts);
+    yield put({ type: AsyncActionEnum.GET_MULTIPLE_POST_SUCCESS, payload: result.posts });
+  } catch (error) {
+    yield put({ type: AsyncActionEnum.GET_MULTIPLE_POST_FAILURE, payload: error });
+  }
+}
+
+// delete post 로직 작성중...
+export function* deletePostSaga(action: DeletePostRequest) {
+  try {
+    const result: { success: boolean } = yield call(deletePost, action.payload);
+    yield put({ type: AsyncActionEnum.DELETE_POST_SUCCESS });
+  } catch (error) {}
 }
 
 export default function* postSaga() {
-    yield takeLatest(AsyncActionEnum.LOAD_SINGLE_POST_REQUEST, getSinglePostSaga);
-    yield takeLatest(AsyncActionEnum.LOAD_POSTS_REQUEST, getPostsSaga);
+  yield takeLatest(AsyncActionEnum.GET_SINGLE_POST_REQUEST, getSinglePostSaga);
+  yield takeLatest(AsyncActionEnum.GET_MULTIPLE_POST_REQUEST, getPostsSaga);
+  yield takeLatest(AsyncActionEnum.DELETE_POST_REQUEST, deletePostSaga);
 }
