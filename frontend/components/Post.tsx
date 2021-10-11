@@ -27,13 +27,10 @@ const Post = ({ id, title, description, updatedAt, isAdmin }: Props) => {
     return year + "년 " + month + "월 " + day + "일";
   };
   const handleDelete = async (id: number) => {
-    if (!deletePostStatus.data) return;
     dispatch({
       type: AsyncActionEnum.DELETE_POST_REQUEST,
       payload: id,
     });
-    if (deletePostStatus.data.success === 200) {
-    }
   };
 
   return (
