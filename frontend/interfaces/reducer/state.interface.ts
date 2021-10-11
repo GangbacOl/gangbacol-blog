@@ -20,3 +20,7 @@ export interface PostStoreInterface {
   getMultiplePostStatus: AsyncRequestStatus;
   deletePostStatus: AsyncRequestStatus;
 }
+
+export interface RootState {
+  post: PostStoreInterface;
+}
