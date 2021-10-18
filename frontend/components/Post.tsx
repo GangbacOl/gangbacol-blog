@@ -1,8 +1,9 @@
 import React, { memo } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Link from "next/link";
 import styled from "styled-components";
 
+import { RootState } from "../interfaces/reducer/state.interface";
 import { AsyncActionEnum } from "../interfaces/reducer/action.interface";
 
 import Delete from "../public/assets/delete.svg";
@@ -16,6 +17,7 @@ interface Props {
 
 const Post = ({ id, title, description, updatedAt, isAdmin }: Props) => {
   const dispatch = useDispatch();
+  const deletePostStatus = useSelector((state: RootState) => state.post.deletePostStatus);
 
   const parseDate = () => {
     const newDate = new Date(updatedAt);
