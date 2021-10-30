@@ -1,8 +1,9 @@
 import { GetServerSideProps } from "next";
 import { useSelector } from "react-redux";
 import styled from "styled-components";
-import Markdown from "markdown-to-jsx";
+import ReactMarkdown from "react-markdown";
 import { END } from "redux-saga";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 
 import { wrapper } from "../../store/configStore";
 import { AsyncActionEnum } from "../../interfaces/reducer/action.interface";
@@ -10,9 +11,32 @@ import { Post as PostType, RootState } from "../../interfaces/reducer/state.inte
 
 const Post = () => {
   const post: PostType | null = useSelector((state: RootState) => state.post.singlePost);
+  if (!post) return <Container>존재하지 않는 포스트입니다.</Container>;
+
   return (
     <Container>
-      <MarkdownWrapper>{post ? <Markdown>{post.content}</Markdown> : null}</MarkdownWrapper>
+      <MarkdownWrapper>
+        <ReactMarkdown
+          children={post.content}
+          components={{
+            code({ node, inline, className, children, ...props }) {
+              const match = /language-(\w+)/.exec(className || "");
+              return !inline && match ? (
+                <SyntaxHighlighter
+                  children={String(children).replace(/\n$/, "")}
+                  language={match[1]}
+                  PreTag="div"
+                  {...props}
+                />
+              ) : (
+                <code className={className} {...props}>
+                  {children}
+                </code>
+              );
+            },
+          }}
+        />
+      </MarkdownWrapper>
     </Container>
   );
 };
@@ -36,12 +60,11 @@ const MarkdownWrapper = styled.div`
     width: 90%;
     padding: 0 5%;
   }
-  & pre {
+  & pre div {
     width: calc(100% - 40px);
     padding: 20px;
     border-radius: 10px;
-    background: #eeeeee;
-    color: #3a3a3a;
+    background: #eeeeee !important;
     font-weight: 500;
   }
   @media only screen and (max-width: 1024px) {
