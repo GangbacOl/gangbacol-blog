@@ -3,7 +3,7 @@ import { takeLatest, put, call } from "redux-saga/effects";
 
 import { AsyncActionEnum, GetSinglePostRequest } from "../../interfaces/reducer/action.interface";
 import { Post } from "../../interfaces/reducer/state.interface";
-import { getSinglePost, getPosts, deletePost } from "../../utils/api";
+import { getSinglePost, getPosts, deletePost } from "../../apis/post";
 
 export function* getSinglePostSaga(action: GetSinglePostRequest) {
   try {

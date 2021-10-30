@@ -1,12 +1,9 @@
-import axios from "axios";
-
+import axios from "../utils/axios";
 import {
   UPLOAD_IMAGE_URL,
   UPLOAD_MARKDOWN_URL,
   GET_SINGLE_POST,
   GET_POSTS,
-  LOGIN_URL,
-  REGISTER_URL,
   DELETE_URL,
 } from "../constants/baseUrl";
 
@@ -49,14 +46,4 @@ export const deletePost = async (id: number): Promise<{}> => {
     headers: { authorization: localStorage.getItem("token") },
   });
   return data;
-};
-
-export const login = async (data: { account: string; password: string }) => {
-  const response = await axios.post(`${LOGIN_URL}`, data);
-  return response;
-};
-
-export const register = async (data: { username: string; account: string; password: string }) => {
-  const response = await axios.post(`${REGISTER_URL}`, data);
-  return response;
 };
