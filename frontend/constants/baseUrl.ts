@@ -1,7 +1,8 @@
-export const BASEURL: string = 'https://api.gangbacol.dev';
+export const BASEURL: string = "https://api.gangbacol.dev";
 
 export const LOGIN_URL: string = `${BASEURL}/admin/login`;
 export const REGISTER_URL: string = `${BASEURL}/admin/register`;
+export const TOKEN_VERIFY_URL: string = `${BASEURL}/admin/tokenVerify`;
 
 export const GET_SINGLE_POST: string = `${BASEURL}/item`;
 export const GET_POSTS: string = `${BASEURL}/list`;
