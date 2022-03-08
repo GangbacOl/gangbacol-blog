@@ -26,7 +26,6 @@ const Post = () => {
                   children={String(children).replace(/\n$/, "")}
                   language={match[1]}
                   PreTag="div"
-                  {...props}
                 />
               ) : (
                 <code className={className} {...props}>
