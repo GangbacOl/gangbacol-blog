@@ -50,9 +50,10 @@ const Container = styled.div`
 
 const MarkdownWrapper = styled.div`
   width: 50%;
+  min-width: 800px;
   padding: 30px 30px;
   background: #f8f8f8;
-  border-radius: 40px;
+  border-radius: 20px;
   box-shadow: 41px 41px 82px #bebebe, -41px -41px 82px #ffffff;
   overflow: hidden;
   & img {
@@ -68,11 +69,11 @@ const MarkdownWrapper = styled.div`
     font-weight: 500;
   }
   @media only screen and (max-width: 1024px) {
-    width: calc(80% - 60px);
+    //width: calc(80% - 60px);
     padding: 40px 30px;
   }
   @media only screen and (max-width: 450px) {
-    width: calc(100% - 60px);
+    //width: calc(100% - 60px);
     padding: 40px 30px;
   }
 `;
