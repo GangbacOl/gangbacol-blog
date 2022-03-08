@@ -50,7 +50,7 @@ const Container = styled.div`
 const MarkdownWrapper = styled.div`
   width: 50%;
   min-width: 800px;
-  padding: 30px 30px;
+  padding: 30px 50px;
   background: #f8f8f8;
   border-radius: 20px;
   box-shadow: 41px 41px 82px #bebebe, -41px -41px 82px #ffffff;
