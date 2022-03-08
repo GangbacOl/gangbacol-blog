@@ -1,4 +1,4 @@
-import { DeletePostRequest } from "./../../interfaces/reducer/action.interface";
+import { DeletePostRequest } from "../../interfaces/reducer/action.interface";
 import { takeLatest, put, call } from "redux-saga/effects";
 
 import { AsyncActionEnum, GetSinglePostRequest } from "../../interfaces/reducer/action.interface";
@@ -26,7 +26,7 @@ export function* getPostsSaga() {
 // delete post 로직 작성중...
 export function* deletePostSaga(action: DeletePostRequest) {
   try {
-    const result: { success: boolean } = yield call(deletePost, action.payload);
+    yield call(deletePost, action.payload);
     yield put({ type: AsyncActionEnum.DELETE_POST_SUCCESS });
   } catch (error) {}
 }
